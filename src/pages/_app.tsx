@@ -22,8 +22,8 @@ function ContributorsWantedBanner() {
         }
       >
         <div className="relative bg-primary-600">
-          <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
-            <div className="pr-16 sm:text-center sm:px-16">
+          <div className="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
+            <div className="pr-16 sm:px-16 sm:text-center">
               <p className="font-medium text-white">
                 <span className="inline">
                   Contributors wanted to improve this page &amp; to add more
@@ -32,7 +32,7 @@ function ContributorsWantedBanner() {
                 <span className="block sm:ml-2 sm:inline-block">
                   <a
                     href="https://github.com/trpc/trpc/issues/1254"
-                    className="text-white font-bold underline"
+                    className="font-bold text-white underline"
                   >
                     {' '}
                     Learn more <span aria-hidden="true">&rarr;</span>
@@ -51,7 +51,7 @@ const MyApp: AppType = (props) => {
   return (
     <>
       <props.Component {...props.pageProps} />
-      <ContributorsWantedBanner />
+      {/* <ContributorsWantedBanner /> */}
     </>
   );
 };

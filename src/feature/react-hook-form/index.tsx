@@ -53,7 +53,7 @@ export default function Page() {
           posts.map((post) => (
             <article
               key={post.id}
-              className="bg-white shadow overflow-hidden sm:rounded-lg p-4"
+              className="overflow-hidden bg-white p-4 shadow sm:rounded-lg"
             >
               <h3 className="text-xl font-bold">{post.title}</h3>
               <p className="my-2">{post.text}</p>
@@ -98,7 +98,7 @@ export default function Page() {
         <button
           type="submit"
           disabled={mutation.isLoading}
-          className="border bg-primary-500 text-white p-2 font-bold"
+          className="border bg-primary-500 p-2 font-bold text-white"
         >
           {mutation.isLoading ? 'Loading' : 'Submit'}
         </button>

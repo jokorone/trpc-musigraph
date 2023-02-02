@@ -1,18 +1,53 @@
 import { signIn, signOut } from 'next-auth/react';
 import { trpc } from 'utils/trpc';
 
-export default function NextAuth() {
+export default function Login() {
+  const session = trpc.authRouter.getSession.useQuery().data;
+  const secretCode = trpc.authRouter.getSecretCode.useQuery().data;
+  const userCount = trpc.authRouter.getUserCount.useQuery().data;
+
   return (
-    <>
-      <h2 className="my-1 text-3xl font-bold">Next Auth Examples</h2>
-      <ServerSideSessionCheck />
-      <MiddlewareQuery />
-      <SignInButton />
-    </>
+    <div className="auth-wall">
+      <div className="my-1 py-2">
+        <h3 className="text-xl">
+          Server side session check with tRPC&apos;s context
+        </h3>
+        {session ? (
+          <>
+            Signed in as {session?.user?.email} <br />
+          </>
+        ) : (
+          <>
+            Not signed in <br />
+          </>
+        )}
+      </div>
+
+      <div className="flex items-center">
+        <button
+          className="btn"
+          onClick={
+            session
+              ? () => {
+                  signOut();
+                }
+              : () => {
+                  signIn();
+                }
+          }
+        >
+          {session ? 'Sign Out' : 'Sign In'}
+        </button>
+        <p className="ml-1">(Any credentials work)</p>
+      </div>
+      <div>
+        <p className="m-2 text-xl">UserCount: {userCount}</p>
+      </div>
+    </div>
   );
 }
 
-function ServerSideSessionCheck() {
+export function ServerSideSessionCheck() {
   const query = trpc.authRouter.getSession.useQuery(undefined, {
     suspense: true,
   });
@@ -20,7 +55,7 @@ function ServerSideSessionCheck() {
   const session = query.data;
 
   return (
-    <div className="my-1">
+    <div className="my-1 py-2">
       <h3 className="text-xl">
         Server side session check with tRPC&apos;s context
       </h3>
@@ -37,7 +72,7 @@ function ServerSideSessionCheck() {
   );
 }
 
-function MiddlewareQuery() {
+export function MiddlewareQuery() {
   const query = trpc.authRouter.getSecretCode.useQuery();
 
   const secretCode = query.data;
@@ -62,7 +97,7 @@ function MiddlewareQuery() {
   );
 }
 
-function SignInButton() {
+export function SignInButton() {
   const query = trpc.authRouter.getSession.useQuery(undefined, {
     suspense: true,
   });

@@ -55,7 +55,7 @@ export default function Breadcrumbs(props: {
             <Link href="/">
               <a className="text-gray-400 hover:text-gray-500">
                 <HomeIcon
-                  className="flex-shrink-0 h-5 w-5"
+                  className="h-5 w-5 flex-shrink-0"
                   aria-hidden="true"
                 />
                 <span className="sr-only">Home</span>
@@ -67,7 +67,7 @@ export default function Breadcrumbs(props: {
           <li key={page.href}>
             <div className="flex items-center">
               <svg
-                className="flex-shrink-0 h-5 w-5 text-gray-300"
+                className="h-5 w-5 flex-shrink-0 text-gray-300"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -104,7 +104,7 @@ function Code(props: { contents: string; language: string }) {
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
-          className={`${className} p-4 overflow-scroll rounded`}
+          className={`${className} overflow-scroll rounded p-4`}
           style={style}
         >
           {tokens.map((line, i) => (
@@ -149,7 +149,7 @@ function ViewSource(props: SourceFile) {
       <button
         onClick={copy}
         type="button"
-        className="absolute right-4 top-4 inline-flex items-center p-1.5 border border-transparent rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+        className="absolute right-4 top-4 inline-flex items-center rounded-lg border border-transparent bg-gray-600 p-1.5 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
       >
         {hasCopied ? (
           <>
@@ -171,7 +171,7 @@ function ViewSource(props: SourceFile) {
 function Spinner() {
   return (
     <div>
-      <span className="animate animate-spin italic py-2 text-primary-500 inline-block">
+      <span className="animate inline-block animate-spin py-2 italic text-primary-500">
         ⏳
       </span>
     </div>
@@ -224,7 +224,7 @@ export function ExamplePage(
         <title>{props.title}</title>
       </Head>
       <div className="bg-primary-400">
-        <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl py-16 px-4 text-center sm:py-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
             {props.title}
           </h1>
@@ -233,17 +233,17 @@ export function ExamplePage(
         </div>
       </div>
       <main>
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4 p-4">
+        <div className="mx-auto max-w-7xl space-y-4 p-4 sm:px-6 lg:px-8">
           <Breadcrumbs pages={[props]} />
           <hr className="w-full border-t border-gray-300" />
-          <div className="border-l-2 bg-white border-primary-400 overflow-hidden py-2 px-4 space-y-2">
+          <div className="space-y-2 overflow-hidden border-l-2 border-primary-400 bg-white py-2 px-4">
             <div className="p-2">
-              <h3 className="text-2xl font-bold mb-2">{props.title}</h3>
+              <h3 className="mb-2 text-2xl font-bold">{props.title}</h3>
               <div className="prose">{props.detail || props.summary}</div>
             </div>
           </div>
           <div id="content">
-            <div className="flex justify-between sticky top-0 bg-primary-100 bg-opacity-50 overflow-x-auto">
+            <div className="sticky top-0 flex justify-between overflow-x-auto bg-primary-100 bg-opacity-50">
               <div></div>
               <div className="btn-group top-0">
                 <Link
