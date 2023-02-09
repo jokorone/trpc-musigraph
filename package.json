@@ -21,7 +21,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@heroicons/react": "^1.0.6",
+    "@heroicons/react": "^2.0.15",
     "@hookform/resolvers": "^2.8.10",
     "@prisma/client": "^4.9.0",
     "@tailwindcss/typography": "^0.5.7",
