@@ -188,6 +188,7 @@ function ClientOnly(props: { children: ReactNode }) {
   }
   return <>{props.children}</>;
 }
+
 export function ExamplePage(
   props: ExampleProps & {
     children?: ReactNode;
@@ -213,11 +214,13 @@ export function ExamplePage(
       ))}
     </Suspense>
   );
+
   const content = props.clientOnly ? (
     <ClientOnly>{innerContent}</ClientOnly>
   ) : (
     innerContent
   );
+
   return (
     <>
       <Head>

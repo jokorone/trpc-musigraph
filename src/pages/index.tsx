@@ -1,11 +1,13 @@
-import * as TauriApp from '@tauri-apps/api';
+import TauriApp from '@tauri-app/app';
+import * as _TauriApp from '@tauri-apps/api';
+import Button from '@ui/button';
 import { meta as nextAuthMeta } from 'feature/next-auth/meta';
 import { meta as reactHookFormMeta } from 'feature/react-hook-form/meta';
 import { meta as ssgMeta } from 'feature/ssg/meta';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ExampleProps } from 'utils/ExamplePage';
 
 import Login from './../feature/auth/index';
@@ -14,32 +16,67 @@ const propsList: ExampleProps[] = [reactHookFormMeta, ssgMeta, nextAuthMeta];
 
 declare global {
   interface Window {
-    __TAURI__: typeof TauriApp;
+    __TAURI__: typeof _TauriApp;
   }
 }
 
-function Page() {
+enum Clients {
+  'CLIENT_NOT_SET',
+  'TAURI',
+  'WEB',
+}
+
+function IndexPage() {
   const router = useRouter();
+  const [clientType, setClientType] = useState<Clients>(Clients.CLIENT_NOT_SET);
 
   useEffect(() => {
-    if (window.__TAURI__) {
-      console.log('🤖 is tauri app');
-      const app = window.__TAURI__;
-      // router.push('/tauri-app')
-      app
-        .invoke('greet', { name: 'World' })
-        .then((response: any) => console.log(response));
-    } else {
-    }
-  }, []);
+    setClientType(window.__TAURI__ ? Clients.TAURI : Clients.WEB);
+  }, [clientType]);
 
   return (
     <>
+      {/*
+      WEB ?
+        <Head>
+          title
+        </Head>
+
+      <Layout>
+        <Nav></Nav> fixed top (menu ------- user state)
+        <AppRouter>
+
+          Collection
+            ?  Collection of Datasets (music sourceA, music sourceB, ???)
+            : Import Wizard
+
+          Import Wizard Flow ->
+            <ImportFrom>
+              Tauri ? fs
+              Web ? connect to public APIS
+            </ImportFrom>
+
+            <Cleanup>
+              organize,
+              batchedit,
+              save as collection owned by user (auth required?)
+              connect handlers for metadata (mp3, custom metadata model provided by user?)
+            </Cleanup>
+
+            Persist in tauri ? local_db (sqlite?) : localstorage
+            persist in postgres web api if auth ✅
+
+            <Success></Success>
+
+        </AppRouter>
+      </Layout>
+
+    */}
       <Head>
         <title>Musigraph</title>
       </Head>
 
-      <Login />
+      {/* <Login /> */}
 
       {/* <div className="bg-primary-400">
         <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
@@ -66,9 +103,11 @@ function Page() {
             </Link>
           ))}
         </ul>
+
+        {clientType === Clients.TAURI ? <TauriApp /> : <p>Coming soon...</p>}
       </main>
     </>
   );
 }
 
-export default Page;
+export default IndexPage;
