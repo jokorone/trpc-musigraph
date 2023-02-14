@@ -15,6 +15,13 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "types": ["@types/jest"],
+    "paths": {
+      "@ui/*": ["./ui/*"],
+      "@lib/*": ["./lib/*"],
+      "@tauri-app/*": ["./tauri-app/*"],
+      "@utils/*": ["./utils/*"],
+      // "@hooks/*": ["./src/lib/hooks/*"],
+    },
     "baseUrl": "./src",
     "incremental": true
   },
